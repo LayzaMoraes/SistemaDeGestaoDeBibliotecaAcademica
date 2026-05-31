@@ -1,5 +1,12 @@
-oracleJdk-26/
+# Java
 *.class
-.vscode/
+
+# Build
 out/
 bin/
+
+# VS Code
+.vscode/
+
+# JDK local
+oracleJdk-26/

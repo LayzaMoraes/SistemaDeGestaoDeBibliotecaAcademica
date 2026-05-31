@@ -42,4 +42,20 @@ public class Livro {
 
     public String getEditora() { return editora; }
     public void setEditora(String editora) { this.editora = editora; }
+
+    public String getIsbn() {
+    return isbn;
+}
+
+public void setIsbn(String isbn) {
+    this.isbn = isbn;
+}
+
+public boolean isDisponivel() {
+    return disponivel;
+}
+
+public void setDisponivel(boolean disponivel) {
+    this.disponivel = disponivel;
+}
 }

@@ -15,7 +15,7 @@ public class Main {
 
         while (opcao != 0) {
             System.out.println("\n==========================================================================");
-            System.out.println("1-Cadastrar Usuario | 2-Cadastrar Livro | 3-Listar Livros | 4-Empréstimo | 5-Devolução | 0-Sair");
+            System.out.println("1-Cadastrar User | 2-Cadastrar Livro | 3-Listar Livros | 4-Empréstimo | 5-Devolução | 0-Sair");
             System.out.print("Opção: ");
             
             try {

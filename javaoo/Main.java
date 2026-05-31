@@ -1,136 +1,170 @@
+
 package javaoo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<Livro> acervo = new ArrayList<>();
-    private static ArrayList<Usuario> usuarios = new ArrayList<>();
-    private static ArrayList<Emprestimo> emprestimos = new ArrayList<>();
-    private static int idEmprestimo = 1;
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        
+        ArrayList<Usuario> listaUsuario = new ArrayList<>();
+        ArrayList<Livro> listaLivro = new ArrayList<>();
+        ArrayList<Emprestimo> listaEmprestimo = new ArrayList<>();
+        
+        int contEmprestimo = 1;
         int opcao = -1;
-
+        
         while (opcao != 0) {
-            System.out.println("\n==========================================================================");
-            System.out.println("1-Cadastrar User | 2-Cadastrar Livro | 3-Listar Livros | 4-Empréstimo | 5-Devolução | 0-Sair");
-            System.out.print("Opção: ");
+            System.out.println("\n=== BIBLIOTECA ===");
+            System.out.println("1 - Cadastrar Usuario");
+            System.out.println("2 - Cadastrar Livro");
+            System.out.println("3 - Listar Livros");
+            System.out.println("4 - Fazer Emprestimo");
+            System.out.println("5 - Devolver Livro");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha: ");
             
-            try {
-                opcao = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Por favor, digite um número válido.");
-                continue;
-            }
-
+            opcao = input.nextInt();
+            input.nextLine();
+            
             switch (opcao) {
                 case 1:
-                    System.out.print("Nome: "); String nome = scanner.nextLine();
-                    System.out.print("Matrícula: "); int mat = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Tipo: [1] Aluno | [2] Professor");
-                    int tipo = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Nome: ");
+                    String nome = input.nextLine();
+                    System.out.print("Matricula: ");
+                    int mat = input.nextInt();
+                    input.nextLine();
+                    System.out.print("CPF: ");
+                    String cpf = input.nextLine();
+                    System.out.print("Email: ");
+                    String email = input.nextLine();
                     
-                    if (tipo == 1) {
-                        usuarios.add(new Aluno(nome, mat, "000", "aluno@email.com"));
-                    } else {
-                        usuarios.add(new Professor(nome, mat, "000", "prof@email.com"));
-                    }
-                    System.out.println("Usuário cadastrado com sucesso!");
+                    Usuario novoUsuario = new Usuario(nome, mat, cpf, email);
+                    listaUsuario.add(novoUsuario);
+                    System.out.println("Usuario cadastrado!");
                     break;
-
+                    
                 case 2:
-                    System.out.print("Título do Livro: "); String tit = scanner.nextLine();
-                    System.out.print("Autor: "); String aut = scanner.nextLine();
-                    acervo.add(new Livro(tit, aut, "000", 2026, "Editora"));
-                    System.out.println("Livro adicionado ao acervo!");
+                    System.out.print("Titulo: ");
+                    String titulo = input.nextLine();
+                    System.out.print("Autor: ");
+                    String autor = input.nextLine();
+                    System.out.print("ISBN: ");
+                    String isbn = input.nextLine();
+                    System.out.print("Ano: ");
+                    int ano = input.nextInt();
+                    input.nextLine();
+                    System.out.print("Editora: ");
+                    String editora = input.nextLine();
+                    
+                    Livro novoLivro = new Livro(titulo, autor, isbn, ano, editora);
+                    listaLivro.add(novoLivro);
+                    System.out.println("Livro cadastrado!");
                     break;
-
+                    
                 case 3:
-                    System.out.println("\n--- ACERVO DA BIBLIOTECA ---");
-                    if (acervo.isEmpty()) {
-                        System.out.println("Nenhum livro cadastrado no sistema.");
+                    if (listaLivro.isEmpty()) {
+                        System.out.println("Nenhum livro cadastrado.");
                     } else {
-                        for (Livro l : acervo) {
-                            String status = l.consultarDisponibilidade() ? "Disponível" : "Emprestado";
-                            System.out.println("- " + l.getTitulo() + " | Autor: " + l.getAutor() + " (" + status + ")");
-                        }
-                    }
-                    break;
-
-                case 4:
-                    if (usuarios.isEmpty() || acervo.isEmpty()) {
-                        System.out.println("É necessário ter pelo menos um usuário e um livro cadastrados!");
-                        break;
-                    }
-
-                    System.out.print("Matrícula do Usuário: "); int matUser = Integer.parseInt(scanner.nextLine());
-                    Usuario userEncontrado = null;
-                    for (Usuario u : usuarios) {
-                        if (u.getMatricula() == matUser) { userEncontrado = u; break; }
-                    }
-
-                    if (userEncontrado == null) {
-                        System.out.println("Usuário não encontrado!");
-                        break;
-                    }
-
-                    System.out.print("Título do livro desejado: "); String titLivro = scanner.nextLine();
-                    Livro livroEncontrado = null;
-                    for (Livro l : acervo) {
-                        if (l.getTitulo().equalsIgnoreCase(titLivro)) { livroEncontrado = l; break; }
-                    }
-
-                    if (livroEncontrado != null && livroEncontrado.consultarDisponibilidade()) {
-                        livroEncontrado.emprestar();
-                        userEncontrado.solicitarEmprestimo();
-                        
-                        Emprestimo emp = new Emprestimo(idEmprestimo++, userEncontrado);
-                        emp.adicionarLivro(livroEncontrado);
-                        emprestimos.add(emp);
-                        
-                        System.out.println("Empréstimo registrado sob o nº: " + emp.getNumeroEmprestimo());
-                    } else {
-                        System.out.println("Livro não disponível ou não encontrado!");
-                    }
-                    break;
-
-                case 5:
-                    if (emprestimos.isEmpty()) {
-                        System.out.println("Não há empréstimos registrados no sistema.");
-                        break;
-                    }
-
-                    System.out.print("Título do livro a devolver: "); String titDevolucao = scanner.nextLine();
-                    boolean devolvido = false;
-                    for (Livro l : acervo) {
-                        if (l.getTitulo().equalsIgnoreCase(titDevolucao) && !l.consultarDisponibilidade()) {
-                            l.devolver();
-                            devolvido = true;
-                            
-                            for (Emprestimo e : emprestimos) {
-                                if (e.getLivros().contains(l) && e.getStatus() == StatusEmprestimo.ATIVO) {
-                                    e.finalizarEmprestimo();
-                                    break;
-                                }
+                        for (Livro l : listaLivro) {
+                            String status = "Disponivel";
+                            if (l.consultarDisponibilidade() == false) {
+                                status = "Emprestado";
                             }
-                            System.out.println("Livro '" + l.getTitulo() + "' devolvido com sucesso!");
-                            break;
+                            System.out.println(l.getTitulo() + " - " + status);
                         }
                     }
-                    if (!devolvido) System.out.println("Livro não encontrado ou não constava como emprestado.");
                     break;
-
+                    
+                case 4:
+                    System.out.print("Matricula: ");
+                    int matBusca = input.nextInt();
+                    input.nextLine();
+                    
+                    Usuario usuarioBusca = null;
+                    for (Usuario u : listaUsuario) {
+                        if (u.getMatricula() == matBusca) {
+                            usuarioBusca = u;
+                        }
+                    }
+                    
+                    if (usuarioBusca == null) {
+                        System.out.println("Usuario nao encontrado!");
+                        break;
+                    }
+                    
+                    System.out.print("Titulo do livro: ");
+                    String tituloBusca = input.nextLine();
+                    
+                    Livro livroBusca = null;
+                    for (Livro l : listaLivro) {
+                        if (l.getTitulo().equalsIgnoreCase(tituloBusca)) {
+                            livroBusca = l;
+                        }
+                    }
+                    
+                    if (livroBusca == null) {
+                        System.out.println("Livro nao encontrado!");
+                        break;
+                    }
+                    
+                    if (livroBusca.consultarDisponibilidade() == false) {
+                        System.out.println("Livro ja esta emprestado!");
+                        break;
+                    }
+                    
+                    livroBusca.emprestar();
+                    Emprestimo emp = new Emprestimo(contEmprestimo, usuarioBusca);
+                    emp.adicionarLivro(livroBusca);
+                    listaEmprestimo.add(emp);
+                    contEmprestimo = contEmprestimo + 1;
+                    System.out.println("Emprestimo realizado!");
+                    break;
+                    
+                case 5:
+                    System.out.print("Titulo do livro: ");
+                    String tituloDev = input.nextLine();
+                    
+                    Livro livroDev = null;
+                    for (Livro l : listaLivro) {
+                        if (l.getTitulo().equalsIgnoreCase(tituloDev)) {
+                            livroDev = l;
+                        }
+                    }
+                    
+                    if (livroDev == null) {
+                        System.out.println("Livro nao encontrado!");
+                        break;
+                    }
+                    
+                    if (livroDev.consultarDisponibilidade() == true) {
+                        System.out.println("Livro nao estava emprestado!");
+                        break;
+                    }
+                    
+                    livroDev.devolver();
+                    
+                    for (Emprestimo e : listaEmprestimo) {
+                        if (e.getStatus() == StatusEmprestimo.ATIVO) {
+                            if (e.getLivros().contains(livroDev)) {
+                                e.finalizarEmprestimo();
+                            }
+                        }
+                    }
+                    
+                    System.out.println("Livro devolvido!");
+                    break;
+                    
                 case 0:
-                    System.out.println("Sistema encerrado.");
+                    System.out.println("Programa encerrado.");
                     break;
-
+                    
                 default:
-                    System.out.println("Opção inválida! Escolha um número de 0 a 5.");
-                    break;
+                    System.out.println("Opcao invalida!");
             }
         }
-        scanner.close();
+        
+        input.close();
     }
 }

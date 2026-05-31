@@ -12,3 +12,4 @@ public class Professor extends Usuario {
     public void consultarHistorico() {
     System.out.println("Histórico do professor " + getNome());
 }
+}

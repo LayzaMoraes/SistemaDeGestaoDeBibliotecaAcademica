@@ -14,7 +14,7 @@ public class Usuario {
         this.email = email;
     }
 
-    // Métodos comportamentais que subiram para a classe pai
+    // Método que será herdado pelas classes filhas
     public void solicitarEmprestimo() {
         System.out.println(nome + " solicitou um empréstimo.");
     }
@@ -23,7 +23,7 @@ public class Usuario {
         System.out.println("Exibindo histórico de " + nome);
     }
 
-    // Getters e Setters
+    // Getters e Setters (Encapsulamento)
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 

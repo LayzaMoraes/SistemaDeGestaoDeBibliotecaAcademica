@@ -1,7 +1,6 @@
 package javaoo;
 
 public class Livro {
-    // Atributos privados (Encapsulamento)
     private String titulo;
     private String autor;
     private String isbn;
@@ -9,17 +8,16 @@ public class Livro {
     private String editora;
     private boolean disponivel;
 
-    // Construtor
+    
     public Livro(String titulo, String autor, String isbn, int ano, String editora) {
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
         this.ano = ano;
         this.editora = editora;
-        this.disponivel = true;
+        this.disponivel = true; 
     }
 
-    // Métodos específicos
     public void emprestar() {
         this.disponivel = false;
     }
@@ -32,7 +30,7 @@ public class Livro {
         return this.disponivel;
     }
 
-    // Getters e Setters
+    
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
 
@@ -47,7 +45,4 @@ public class Livro {
 
     public String getEditora() { return editora; }
     public void setEditora(String editora) { this.editora = editora; }
-
-    public boolean isDisponivel() { return disponivel; }
-    public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
 }

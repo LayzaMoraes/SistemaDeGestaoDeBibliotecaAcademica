@@ -41,4 +41,4 @@ src/
     ├── Emprestimo.java       # Classe associativa (Une Usuário, Livro e Data da operação)
     └── StatusEmprestimo.java # Estrutura Enum contendo as regras de estados do empréstimo
 
-remove README
+

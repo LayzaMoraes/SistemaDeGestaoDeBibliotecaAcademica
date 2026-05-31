@@ -5,11 +5,14 @@ public class Professor extends Usuario {
     public Professor(String nome, int matricula, String cpf, String email) {
         super(nome, matricula, cpf, email);
     }
+
     @Override
     public void solicitarEmprestimo() {
-    System.out.println("Professor " + getNome() + " solicitou um empréstimo.");
-}
+        System.out.println("Professor " + getNome() + " solicitou um empréstimo.");
+    }
+
+    @Override
     public void consultarHistorico() {
-    System.out.println("Histórico do professor " + getNome());
-}
+        System.out.println("Histórico do professor " + getNome());
+    }
 }

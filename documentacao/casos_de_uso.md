@@ -1,5 +1,10 @@
 # 📄 Documentação do Sistema de Biblioteca
 
+## 🎭 Diagrama de Casos de Uso
+Mapeamento das interações do Bibliotecário com as fronteiras do sistema:
+
+![Diagrama de Casos de Uso](Diagrama de Caso de Uso BIBLIOTECARIO.png)
+
 ## 👥 Casos de Uso (Resumo)
 
 * **[UC01] Cadastrar Usuário:** O bibliotecário insere Nome e Matrícula. O sistema cria um perfil de Aluno ou Professor.

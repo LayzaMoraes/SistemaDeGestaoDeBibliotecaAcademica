@@ -5,6 +5,11 @@ Mapeamento das interações do Bibliotecário com as fronteiras do sistema:
 
 ![Diagrama de Casos de Uso](Diagrama de Caso de Uso BIBLIOTECARIO.png)
 
+## 📊 Diagrama de Classes
+Aqui está a modelagem das classes e suas relações desenvolvida no draw.io:
+
+![Diagrama de Classes](Diagrama de CLASSES.png)
+
 ## 👥 Casos de Uso (Resumo)
 
 * **[UC01] Cadastrar Usuário:** O bibliotecário insere Nome e Matrícula. O sistema cria um perfil de Aluno ou Professor.
